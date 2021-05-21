@@ -47,7 +47,8 @@ defmodule GoBarber.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:credo, "~> 1.5"}
+      {:credo, "~> 1.5"},
+      {:argon2_elixir, "~> 2.0"}
     ]
   end
 
