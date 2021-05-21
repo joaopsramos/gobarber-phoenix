@@ -21,4 +21,19 @@ defmodule GoBarber.Accounts.User do
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
   end
+
+  def registration_changeset(user, attrs) do
+    user
+    |> changeset(attrs)
+    |> cast(attrs, [:password])
+    |> validate_required([:password])
+    |> validate_length(:password, min: 8)
+    |> put_pass_hash()
+  end
+
+  defp put_pass_hash(%Ecto.Changeset{valid?: true, changes: %{password: pass}} = changeset) do
+    change(changeset, Argon2.add_hash(pass))
+  end
+
+  defp put_pass_hash(changeset), do: changeset
 end
