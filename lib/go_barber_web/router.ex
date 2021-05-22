@@ -21,7 +21,7 @@ defmodule GoBarberWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  scope "/api", GoBarberWeb do
+  scope "/api", GoBarberWeb.API, as: :api do
     pipe_through :api
 
     post "/users", UserController, :create
