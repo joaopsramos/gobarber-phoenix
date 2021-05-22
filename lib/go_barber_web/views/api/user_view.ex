@@ -6,7 +6,7 @@ defmodule GoBarberWeb.API.UserView do
   end
 
   defp serialize(user) do
-    fields = ~w(id name email)
+    fields = ~w(id name email)a
 
     Map.take(user, fields)
   end
