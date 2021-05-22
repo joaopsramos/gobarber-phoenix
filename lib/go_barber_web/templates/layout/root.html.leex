@@ -8,8 +8,11 @@
     <%= live_title_tag assigns[:page_title] || "GoBarber", suffix: " · Phoenix Framework" %>
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <%# Google Fonts %>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
-  <body>
+  <body class="font-serif">
     <%= @inner_content %>
   </body>
 </html>
