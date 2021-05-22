@@ -18,6 +18,10 @@ module.exports = {
         background: "#312E38",
         inputs: "#232129"
       },
+      backgroundImage: theme => ({
+        'sign-up': "url('/images/sign_up_bg.png')",
+      })
+    },
   },
   variants: {
     extend: {},
