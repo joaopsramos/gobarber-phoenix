@@ -87,6 +87,9 @@ defmodule GoBarberWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
+      # Import Icon helper
+      import GoBarberWeb.Helpers.IconHelper
+
       import GoBarberWeb.ErrorHelpers
       import GoBarberWeb.Gettext
       alias GoBarberWeb.Router.Helpers, as: Routes
