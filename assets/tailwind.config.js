@@ -8,7 +8,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      'serif': ['roboto-slab']
+      'serif': ['Roboto Slab', 'serif']
     },
     extend: {
       colors: {
