@@ -51,11 +51,21 @@ defmodule GoBarberWeb.ComponentLive.Input do
 
     input_opts = assigns[:input] || []
 
-    {:ok,
-     assign(
-       socket,
-       Map.merge(assigns, %{input_opts: input_opts, has_error: has_error, form_name: form.name})
-     )}
+    updated_assigns =
+      if value = assigns[:input][:value] do
+        Map.merge(assigns, %{
+          value: value,
+          input_opts: input_opts,
+          has_error: has_error
+        })
+      else
+        Map.merge(assigns, %{
+          input_opts: input_opts,
+          has_error: has_error
+        })
+      end
+
+    {:ok, assign(socket, updated_assigns)}
   end
 
   def handle_event("focus", %{"value" => value}, socket) do
