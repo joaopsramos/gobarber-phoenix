@@ -24,6 +24,7 @@ module.exports = {
       },
       backgroundImage: theme => ({
         'sign-up': "url('/images/sign_up_bg.png')",
+        'sign-in': "url('/images/sign_in_bg.png')",
       })
     },
   },
