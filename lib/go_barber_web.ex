@@ -23,6 +23,7 @@ defmodule GoBarberWeb do
 
       import Plug.Conn
       import GoBarberWeb.Gettext
+      import GoBarberWeb.Auth, only: [authenticate_user: 2]
       alias GoBarberWeb.Router.Helpers, as: Routes
     end
   end
@@ -66,6 +67,7 @@ defmodule GoBarberWeb do
       import Plug.Conn
       import Phoenix.Controller
       import Phoenix.LiveView.Router
+      import GoBarberWeb.Auth, only: [authenticate_user: 2]
     end
   end
 
