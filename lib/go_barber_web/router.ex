@@ -27,7 +27,7 @@ defmodule GoBarberWeb.Router do
 
     get "/signup", UserController, :new
 
-    get "/mydashboard", DashboardController, :index
+    get "/dashboard", DashboardController, :index
   end
 
   # Other scopes may use custom stacks.
@@ -49,7 +49,7 @@ defmodule GoBarberWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: GoBarberWeb.Telemetry
+      live_dashboard "/live_dashboard", metrics: GoBarberWeb.Telemetry
     end
   end
 end

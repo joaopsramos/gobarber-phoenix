@@ -9,7 +9,7 @@ defmodule GoBarberWeb.SessionController do
       {:ok, user} ->
         conn
         |> Auth.login(user)
-        |> redirect(to: "/mydashboard")
+        |> redirect(to: "/dashboard")
 
       {:error, _} ->
         conn
