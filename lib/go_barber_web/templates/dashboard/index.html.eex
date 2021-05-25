@@ -1,0 +1,4 @@
+<div>
+  oi
+</div>
+<%= link "Log out", to: Routes.session_path(@conn, :delete), method: "delete" %>
