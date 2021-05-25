@@ -5,11 +5,12 @@ defmodule GoBarberWeb.ComponentLive.Input do
     ~L"""
     <div class="flex items-center p-4 bg-inputs rounded-lg border-2 transition-all duration-200
                 <%= if @focused, do: "border-orange", else: "border-inputs" %>">
-      <%= fi_icon(
-            @icon,
-            class:
-              "mr-3 w-6 h-6 #{if @focused || @value != "", do: "text-orange", else: "text-gray-hard"}"
-          ) %>
+      <%= @icon &&
+            fi_icon(
+              @icon,
+              class:
+                "mr-3 w-6 h-6 #{if @focused || @value != "", do: "text-orange", else: "text-gray-hard"}"
+            ) %>
       <%= text_input(
             @f,
             @field,
@@ -38,7 +39,7 @@ defmodule GoBarberWeb.ComponentLive.Input do
   end
 
   def mount(socket) do
-    {:ok, assign(socket, focused: false, value: "", icon: "")}
+    {:ok, assign(socket, focused: false, value: "", icon: nil)}
   end
 
   def update(%{f: form} = assigns, socket) do
