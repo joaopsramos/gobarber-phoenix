@@ -20,7 +20,7 @@ defmodule GoBarberWeb.Router do
 
     live "/", PageLive, :index
 
-    live "/signin", SessionLive.New, :new
+    live "/signin", SessionLive.New
 
     post "/session", SessionController, :create
     delete "/session", SessionController, :delete

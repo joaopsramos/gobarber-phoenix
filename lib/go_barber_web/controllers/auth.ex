@@ -3,6 +3,7 @@ defmodule GoBarberWeb.Auth do
 
   import Plug.Conn
 
+  alias GoBarberWeb.SessionLive
   alias GoBarberWeb.Router.Helpers, as: Routes
 
   def init(opts), do: opts
@@ -27,7 +28,7 @@ defmodule GoBarberWeb.Auth do
       conn
     else
       conn
-      |> redirect(to: Routes.session_new_path(conn, :new))
+      |> redirect(to: Routes.live_path(conn, SessionLive.New))
       |> halt()
     end
   end
