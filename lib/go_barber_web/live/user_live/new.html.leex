@@ -21,19 +21,21 @@
         input: [placeholder: "E-mail"]
       ) %>
 </div>
-<%= live_component(
-      @socket,
-      ComponentLive.Input,
-      id: "pass-input",
-      f: f,
-      icon: "lock",
-      field: :password,
-      input: [
-        placeholder: "Senha",
-        type: "password",
-        value: input_value(f, :password)
-      ]
-    ) %>
+<div>
+  <%= live_component(
+        @socket,
+        ComponentLive.Input,
+        id: "pass-input",
+        f: f,
+        icon: "lock",
+        field: :password,
+        input: [
+          placeholder: "Senha",
+          type: "password",
+          value: input_value(f, :password)
+        ]
+      ) %>
+</div>
 
 <%= submit "Cadastrar", class: "mt-6 bg-orange text-inputs w-full py-4
                                 rounded-lg hover:opacity-80 transition-all
