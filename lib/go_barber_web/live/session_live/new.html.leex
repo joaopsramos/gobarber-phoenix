@@ -1,0 +1,53 @@
+<div class="flex h-screen bg-background">
+  <div class="flex flex-col justify-center items-center w-full max-w-3xl">
+    <img src="<%= Routes.static_url(@socket, "/images/logo.svg") %>" alt="Logo">
+    <h1 class="mt-20 mb-6 text-white text-3xl font-medium">Faça seu login</h1>
+
+    <%= f = form_for :session, "/session", class: "text-gray-hard w-80" %>
+    <div class="mb-2">
+      <%= live_component(
+        @socket,
+        ComponentLive.Input,
+        id: "email-input",
+        f: f,
+        field: :email,
+        icon: "mail",
+        input: [placeholder: "E-mail"]
+      ) %>
+    </div>
+    <div>
+      <%= live_component(
+        @socket,
+        ComponentLive.Input,
+        id: "pass-input",
+        f: f,
+        field: :password,
+        icon: "lock",
+        input: [
+          placeholder: "Senha",
+          type: "password",
+          value: input_value(f, :password)
+        ]
+      ) %>
+    </div>
+
+    <%= submit "Entrar", class: "mt-6 bg-orange text-inputs w-full py-4
+                                rounded-lg hover:opacity-80 transition-all
+                                duration-200 font-medium" %>
+
+    <%= link "Esqueci minha senha", to: "#",
+              class: "mt-6 text-white block text-center transition-all
+                      duration-200 hover:opacity-70" %>
+    </form>
+
+    <%= link to: "/signup",
+              class: "text-white mt-20 transition-all duration-200 hover:opacity-70" do %>
+    <span class="flex items-center text-orange">
+      <%= fi_icon "log-in", class: "w-5 h-5 mr-2" %>
+      Criar conta
+    </span>
+    <% end %>
+  </div>
+
+  <div class="bg-sign-in bg-center bg-cover bg-no-repeat h-full w-full mix-blend-hard-light"></div>
+</div>
