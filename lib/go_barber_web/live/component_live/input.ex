@@ -15,9 +15,9 @@ defmodule GoBarberWeb.ComponentLive.Input do
             @f,
             @field,
             List.flatten([
-              {:"phx-focus", "focus"},
-              {:"phx-blur", "blur"},
-              {:"phx-target", @myself},
+              {:phx_focus, "focus"},
+              {:phx_blur, "blur"},
+              {:phx_target, @myself},
               {:value, @value},
               {:class, "bg-inputs placeholder-gray-hard text-white focus:outline-none"},
               @input_opts
