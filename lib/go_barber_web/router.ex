@@ -20,7 +20,14 @@ defmodule GoBarberWeb.Router do
 
     live "/", PageLive, :index
 
+    live "/signin", SessionLive.New, :new
+
+    post "/session", SessionController, :create
+    delete "/session", SessionController, :delete
+
     get "/signup", UserController, :new
+
+    get "/mydashboard", DashboardController, :index
   end
 
   # Other scopes may use custom stacks.
