@@ -42,10 +42,10 @@ defmodule GoBarberWeb.ComponentLive.Input do
     {:ok, assign(socket, focused: false, value: "", icon: nil)}
   end
 
-  def update(%{f: form} = assigns, socket) do
+  def update(%{f: form, field: field} = assigns, socket) do
     has_error =
       form.errors
-      |> Keyword.get_values(assigns.field)
+      |> Keyword.get_values(field)
       |> Enum.empty?()
       |> Kernel.!()
 
