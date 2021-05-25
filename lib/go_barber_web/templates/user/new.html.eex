@@ -1,0 +1,18 @@
+<div class="flex h-screen bg-background">
+  <div class="bg-sign-up bg-center bg-cover bg-no-repeat h-full w-full mix-blend-hard-light"></div>
+
+  <div class="flex flex-col justify-center items-center w-full max-w-3xl">
+    <img src="<%= Routes.static_url(@conn, "/images/logo.svg") %>" alt="Logo">
+    <h1 class="mt-20 mb-6 text-white text-3xl font-medium">Faça seu cadastro</h1>
+
+    <%= live_render @conn, UserLive.New %>
+
+    <%= link to: "/signin",
+              class: "text-white mt-20 transition-all duration-200 hover:opacity-70" do %>
+    <span class="flex items-center">
+      <%= fi_icon "arrow-left", class: "w-5 h-5 mr-2 text-white" %>
+      Fazer login
+    </span>
+    <% end %>
+  </div>
+</div>

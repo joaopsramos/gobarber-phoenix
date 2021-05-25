@@ -1,0 +1,41 @@
+<%= f = form_for @changeset, "#", phx_submit: :submit, class: "text-gray-hard w-80" %>
+<div class="mb-2">
+  <%= live_component(
+        @socket,
+        ComponentLive.Input,
+        id: "name-input",
+        f: f,
+        icon: "user",
+        field: :name,
+        input: [placeholder: "Nome"]
+      ) %>
+</div>
+<div class="mb-2">
+  <%= live_component(
+        @socket,
+        ComponentLive.Input,
+        id: "email-input",
+        f: f,
+        icon: "mail",
+        field: :email,
+        input: [placeholder: "E-mail"]
+      ) %>
+</div>
+<%= live_component(
+      @socket,
+      ComponentLive.Input,
+      id: "pass-input",
+      f: f,
+      icon: "lock",
+      field: :password,
+      input: [
+        placeholder: "Senha",
+        type: "password",
+        value: input_value(f, :password)
+      ]
+    ) %>
+
+<%= submit "Cadastrar", class: "mt-6 bg-orange text-inputs w-full py-4
+                                rounded-lg hover:opacity-80 transition-all
+                                duration-200 font-medium" %>
+</form>

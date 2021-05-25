@@ -18,6 +18,8 @@ defmodule GoBarberWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+
+    get "/signup", UserController, :new
   end
 
   # Other scopes may use custom stacks.
