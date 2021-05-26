@@ -7,7 +7,13 @@ defmodule GoBarberWeb.UserLive.New do
 
   def mount(_params, _session, socket) do
     changeset = Accounts.change_registration(%User{}, %{})
-    {:ok, assign(socket, changeset: changeset, focused: false, value: "")}
+    {:ok, assign(socket, changeset: changeset, user_role: "customer")}
+  end
+
+  def handle_event("change", %{"user" => user_params}, socket) do
+    changeset = User.registration_changeset(%User{}, user_params)
+
+    {:noreply, assign(socket, changeset: changeset, user_role: user_params["user_role"])}
   end
 
   def handle_event("submit", %{"user" => user_params}, socket) do

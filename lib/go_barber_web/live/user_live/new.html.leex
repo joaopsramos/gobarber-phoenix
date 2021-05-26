@@ -1,4 +1,29 @@
-<%= f = form_for @changeset, "#", phx_submit: :submit, class: "text-gray-hard w-80" %>
+<%= f = form_for(@changeset, "#",
+          phx_submit: "submit",
+          phx_change: "change",
+          class: "text-gray-hard w-80"
+        ) %>
+
+<div class="text-center mt-20 mb-12 space-x-6 font-medium">
+  <%= label class: "#{
+              if @user_role == "customer",
+                do: "text-white pb-2 border-b-2 border-orange",
+                else: "cursor-pointer hover:text-gray"
+            } transition-colors duration-300" do %>
+  Sou cliente
+  <%= radio_button f, :user_role, "customer", class: "hidden", checked: true %>
+  <% end %>
+
+  <%= label class: "#{
+              if @user_role == "barber",
+                do: "text-white pb-2 border-b-2 border-orange",
+                else: "cursor-pointer hover:text-gray"
+            } transition-colors duration-300" do %>
+  Sou cabeleireiro
+  <%= radio_button f, :user_role, "barber", class: "hidden" %>
+  <% end %>
+</div>
+
 <div class="mb-2">
   <%= live_component(
         @socket,
