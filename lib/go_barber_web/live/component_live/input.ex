@@ -3,7 +3,7 @@ defmodule GoBarberWeb.ComponentLive.Input do
 
   def render(assigns) do
     ~L"""
-    <div class="flex items-center p-4 bg-inputs rounded-lg border-2 transition-all duration-200
+    <label for="<%= @label_for %>" class="flex items-center p-4 bg-inputs rounded-lg border-2 transition-all duration-200
                 <%= if @focused, do: "border-orange", else: "border-inputs" %>">
       <%= @icon &&
             fi_icon(
@@ -34,7 +34,7 @@ defmodule GoBarberWeb.ComponentLive.Input do
           <% end %>
         </div>
       </div>
-    </div>
+    </label>
     """
   end
 
@@ -43,6 +43,8 @@ defmodule GoBarberWeb.ComponentLive.Input do
   end
 
   def update(%{f: form, field: field} = assigns, socket) do
+    label_for = "#{form.id}_#{field}"
+
     has_error =
       form.errors
       |> Keyword.get_values(field)
@@ -55,11 +57,13 @@ defmodule GoBarberWeb.ComponentLive.Input do
       if value = assigns[:input][:value] do
         Map.merge(assigns, %{
           value: value,
+          label_for: label_for,
           input_opts: input_opts,
           has_error: has_error
         })
       else
         Map.merge(assigns, %{
+          label_for: label_for,
           input_opts: input_opts,
           has_error: has_error
         })
