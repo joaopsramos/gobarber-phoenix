@@ -2,12 +2,15 @@ defmodule GoBarber.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @required_attrs ~w(name email)a
+  @required_attrs ~w(name email user_role)a
+  @optional_attrs ~w(avatar)a
 
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "users" do
     field :name, :string
     field :email, :string
+    field :avatar, :string
+    field :user_role, :string
     field :password, :string, virtual: true
     field :password_hash, :string
 
@@ -16,7 +19,7 @@ defmodule GoBarber.Accounts.User do
 
   def changeset(user, attrs) do
     user
-    |> cast(attrs, @required_attrs)
+    |> cast(attrs, @required_attrs ++ @optional_attrs)
     |> validate_required(@required_attrs)
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
