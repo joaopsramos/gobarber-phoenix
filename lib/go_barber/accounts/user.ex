@@ -1,6 +1,7 @@
 defmodule GoBarber.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias GoBarber.Schedules.Appointment
 
   @required_attrs ~w(name email user_role)a
   @optional_attrs ~w(avatar)a
@@ -13,6 +14,9 @@ defmodule GoBarber.Accounts.User do
     field :user_role, :string
     field :password, :string, virtual: true
     field :password_hash, :string
+
+    has_many :appointments_as_customer, Appointment, foreign_key: :customer_id
+    has_many :appointments_as_provider, Appointment, foreign_key: :provider_id
 
     timestamps()
   end
