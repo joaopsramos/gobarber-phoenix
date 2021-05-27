@@ -9,8 +9,8 @@ defmodule GoBarber.Repo.Migrations.AddAvatarAndUserRoleToUsers do
 
     create constraint(
       "users",
-      :user_role_must_be_customer_or_barber,
-      check: "user_role = 'customer' OR user_role = 'barber'"
+      :user_role_must_be_customer_or_provider,
+      check: "user_role = 'customer' OR user_role = 'provider'"
     )
   end
 end

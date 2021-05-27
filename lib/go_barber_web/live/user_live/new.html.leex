@@ -15,12 +15,12 @@
   <% end %>
 
   <%= label class: "#{
-              if @user_role == "barber",
+              if @user_role == "provider",
                 do: "text-white pb-2 border-b-2 border-orange",
                 else: "cursor-pointer hover:text-gray"
             } transition-colors duration-300" do %>
   Sou cabeleireiro
-  <%= radio_button f, :user_role, "barber", class: "hidden" %>
+  <%= radio_button f, :user_role, "provider", class: "hidden" %>
   <% end %>
 </div>
 
