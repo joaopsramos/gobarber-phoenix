@@ -24,6 +24,7 @@ defmodule GoBarber.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import GoBarber.DataCase
+      import GoBarber.TestHelpers
     end
   end
 
