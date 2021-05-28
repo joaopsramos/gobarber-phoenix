@@ -30,7 +30,7 @@ defmodule GoBarber.Accounts do
     Repo.get_by(User, params)
   end
 
-  def register_user(attrs) do
+  def register_user(attrs \\ %{}) do
     %User{}
     |> User.registration_changeset(attrs)
     |> Repo.insert()
