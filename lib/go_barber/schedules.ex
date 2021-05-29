@@ -9,6 +9,10 @@ defmodule GoBarber.Schedules do
   @start_hour 8
   @end_hour 18
 
+  def change_appointment(%Appointment{} = appointment, params \\ %{}) do
+    Appointment.changeset(appointment, params)
+  end
+
   def create_appointment(%Accounts.User{} = customer, attrs \\ %{}) do
     %Appointment{}
     |> Appointment.changeset(attrs)
