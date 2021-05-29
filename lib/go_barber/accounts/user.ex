@@ -42,5 +42,5 @@ defmodule GoBarber.Accounts.User do
     change(changeset, Argon2.add_hash(pass))
   end
 
-  defp put_pass_hash(changeset), do: changeset
+  defp put_pass_hash(invalid_changeset), do: invalid_changeset
 end
