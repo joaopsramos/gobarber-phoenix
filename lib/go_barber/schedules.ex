@@ -9,18 +9,12 @@ defmodule GoBarber.Schedules do
   @start_hour 8
   @end_hour 18
 
-  def create_appointment(
-        %{
-          provider: %Accounts.User{} = customer,
-          customer: %Accounts.User{} = provider
-        },
-        attrs \\ %{}
-      ) do
+  def create_appointment(%Accounts.User{} = customer, attrs \\ %{}) do
     %Appointment{}
     |> Appointment.changeset(attrs)
     |> validate_unique_date()
+    |> validate_ids_not_equal(customer)
     |> Ecto.Changeset.put_assoc(:customer, customer)
-    |> Ecto.Changeset.put_assoc(:provider, provider)
     |> Repo.insert()
   end
 
@@ -78,4 +72,20 @@ defmodule GoBarber.Schedules do
   end
 
   defp validate_unique_date(invalid_changeset), do: invalid_changeset
+
+  defp validate_ids_not_equal(%Ecto.Changeset{valid?: true} = changeset, customer) do
+    case Ecto.Changeset.get_field(changeset, :provider_id) do
+      nil ->
+        changeset
+
+      provider_id ->
+        if customer.id == provider_id do
+          raise "you can't create an appointment with yourself"
+        else
+          changeset
+        end
+    end
+  end
+
+  defp validate_ids_not_equal(invalid_changeset, _), do: invalid_changeset
 end
