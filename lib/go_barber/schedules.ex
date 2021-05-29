@@ -18,6 +18,14 @@ defmodule GoBarber.Schedules do
     |> Repo.insert()
   end
 
+  def get_schedules_constants() do
+    %{
+      scheduling_time: @scheduling_time,
+      start_hour: @start_hour,
+      end_hour: @end_hour
+    }
+  end
+
   def get_appointment_by(params) do
     Repo.get_by(Appointment, params)
   end
