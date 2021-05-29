@@ -28,7 +28,7 @@ defmodule GoBarber.Schedules do
     Repo.get_by(Appointment, params)
   end
 
-  def provider_month_availability(provider_id, year, month) do
+  def list_provider_month_availability(provider_id, year, month) do
     %{appointments_as_provider: appointments} =
       from(p in Accounts.User, where: p.id == ^provider_id, preload: :appointments_as_provider)
       |> Repo.one()
@@ -37,17 +37,11 @@ defmodule GoBarber.Schedules do
 
     1..days
     |> Enum.map(fn day ->
-      day_availability =
-        @start_hour..(@end_hour - @scheduling_time)
-        |> Enum.map(fn hour ->
-          Enum.any?(appointments, fn %{date: date} ->
-            Date.compare(date, Date.new!(year, month, day)) == :eq && date.hour == hour
-          end)
-        end)
+      availability = day_availability(appointments, Date.new!(year, month, day))
 
       %{
         day: day,
-        available: !Enum.all?(day_availability)
+        available: !Enum.all?(availability)
       }
     end)
   end
@@ -55,6 +49,17 @@ defmodule GoBarber.Schedules do
   def providers() do
     Accounts.get_user_by(user_role: "provider")
     |> Repo.all()
+  end
+
+  defp day_availability(appointments, date_to_compare) do
+    hour_interval = @start_hour..(@end_hour - @scheduling_time)
+
+    hour_interval
+    |> Enum.map(fn hour ->
+      Enum.any?(appointments, fn %{date: date} ->
+        Date.compare(date, date_to_compare) == :eq && date.hour == hour
+      end)
+    end)
   end
 
   defp validate_unique_date(
