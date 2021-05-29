@@ -46,8 +46,7 @@ defmodule GoBarber.Schedules do
     end)
   end
 
-  def providers() do
-    Accounts.get_user_by(user_role: "provider")
+    from(u in Accounts.User, where: u.user_role == "provider")
     |> Repo.all()
   end
 
