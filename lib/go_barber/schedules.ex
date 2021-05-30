@@ -40,9 +40,16 @@ defmodule GoBarber.Schedules do
   end
 
   def list_provider_month_availability(provider_id, year, month) do
-    %{appointments_as_provider: appointments} =
-      from(p in Accounts.User, where: p.id == ^provider_id, preload: :appointments_as_provider)
-      |> Repo.one()
+    date = DateTime.new!(Date.new!(year, month, 1), Time.new!(0, 0, 0))
+
+    appointments =
+      Repo.all(
+        from a in Appointment,
+          where:
+            a.provider_id == ^provider_id and
+              a.date >= ^date and
+              a.date < datetime_add(^date, 1, "month")
+      )
 
     days = Calendar.ISO.days_in_month(year, month)
 
@@ -52,20 +59,30 @@ defmodule GoBarber.Schedules do
 
       %{
         day: day,
-        available: !Enum.all?(availability)
+        available: Enum.all?(availability, & &1.available)
       }
     end)
   end
 
   defp day_availability(appointments, date_to_compare) do
-    hour_interval = @start_hour..(@end_hour - @scheduling_time)
-
-    hour_interval
+    hour_interval()
     |> Enum.map(fn hour ->
-      Enum.any?(appointments, fn %{date: date} ->
-        Date.compare(date, date_to_compare) == :eq && date.hour == hour
-      end)
+      found =
+        Enum.find(appointments, fn %{date: date} ->
+          Date.compare(date, date_to_compare) == :eq && date.hour == hour
+        end)
+
+      available = if found, do: false, else: true
+
+      %{
+        hour: hour,
+        available: available
+      }
     end)
+  end
+
+  def hour_interval() do
+    @start_hour..(@end_hour - @scheduling_time)
   end
 
   defp validate_ids_not_equal(%Ecto.Changeset{valid?: true} = changeset, customer) do

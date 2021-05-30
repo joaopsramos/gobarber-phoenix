@@ -142,7 +142,7 @@ defmodule GoBarber.SchedulesTest do
                1
              ) == availability_response
 
-      appointment_fixture(provider_id)
+      appointment_fixture(provider_id, %{date: ~U[2021-02-01 08:00:00.000000Z]})
 
       assert Schedules.list_provider_month_availability(
                provider_id,
