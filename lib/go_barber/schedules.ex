@@ -22,6 +22,10 @@ defmodule GoBarber.Schedules do
     |> Repo.insert()
   end
 
+  def get_appointment_by(params) do
+    Repo.get_by(Appointment, params)
+  end
+
   def get_schedules_constants() do
     %{
       scheduling_time: @scheduling_time,
@@ -30,8 +34,9 @@ defmodule GoBarber.Schedules do
     }
   end
 
-  def get_appointment_by(params) do
-    Repo.get_by(Appointment, params)
+  def list_providers() do
+    from(u in Accounts.User, where: u.user_role == "provider")
+    |> Repo.all()
   end
 
   def list_provider_month_availability(provider_id, year, month) do
@@ -52,11 +57,6 @@ defmodule GoBarber.Schedules do
     end)
   end
 
-  def list_providers() do
-    from(u in Accounts.User, where: u.user_role == "provider")
-    |> Repo.all()
-  end
-
   defp day_availability(appointments, date_to_compare) do
     hour_interval = @start_hour..(@end_hour - @scheduling_time)
 
@@ -67,6 +67,22 @@ defmodule GoBarber.Schedules do
       end)
     end)
   end
+
+  defp validate_ids_not_equal(%Ecto.Changeset{valid?: true} = changeset, customer) do
+    case Ecto.Changeset.get_field(changeset, :provider_id) do
+      nil ->
+        changeset
+
+      provider_id ->
+        if customer.id == provider_id do
+          raise "you can't create an appointment with yourself"
+        else
+          changeset
+        end
+    end
+  end
+
+  defp validate_ids_not_equal(invalid_changeset, _), do: invalid_changeset
 
   defp validate_unique_date(
          %Ecto.Changeset{
@@ -84,20 +100,4 @@ defmodule GoBarber.Schedules do
   end
 
   defp validate_unique_date(invalid_changeset), do: invalid_changeset
-
-  defp validate_ids_not_equal(%Ecto.Changeset{valid?: true} = changeset, customer) do
-    case Ecto.Changeset.get_field(changeset, :provider_id) do
-      nil ->
-        changeset
-
-      provider_id ->
-        if customer.id == provider_id do
-          raise "you can't create an appointment with yourself"
-        else
-          changeset
-        end
-    end
-  end
-
-  defp validate_ids_not_equal(invalid_changeset, _), do: invalid_changeset
 end
