@@ -56,7 +56,8 @@ defmodule GoBarber.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:argon2_elixir, "~> 2.0"},
-      {:excoveralls, "~> 0.14.1", only: :test}
+      {:excoveralls, "~> 0.14.1", only: :test},
+      {:hammox, "~> 0.5.0", only: :test}
     ]
   end
 
