@@ -8,7 +8,8 @@
 use Mix.Config
 
 config :go_barber,
-  ecto_repos: [GoBarber.Repo]
+  ecto_repos: [GoBarber.Repo],
+  datetime_impl: DateTime
 
 # Configures the endpoint
 config :go_barber, GoBarberWeb.Endpoint,

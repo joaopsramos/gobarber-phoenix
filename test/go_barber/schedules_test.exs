@@ -1,13 +1,16 @@
 defmodule GoBarber.SchedulesTest do
   use GoBarber.DataCase, async: true
 
+  import Hammox
+
   alias GoBarber.Accounts.User
   alias GoBarber.Schedules
   alias GoBarber.Schedules.Appointment
-  alias GoBarber.Mocks.DateTimeMock
 
-  def init_datetime_mock(date \\ ~U[2021-01-01 00:00:00.000000Z]) do
-    DateTimeMock.set_date(date)
+  setup do
+    stub(GoBarber.DateTime.Mock, :utc_now, fn -> ~U[2021-01-01 00:00:00.000000Z] end)
+
+    :ok
   end
 
   test "list_providers/0 returns all providers" do
@@ -25,8 +28,6 @@ defmodule GoBarber.SchedulesTest do
     @invalid_attrs %{date: nil, provider_id: nil}
 
     setup do
-      init_datetime_mock()
-
       %User{id: provider_id} = user_fixture(%{user_role: "provider"})
 
       {
@@ -105,7 +106,7 @@ defmodule GoBarber.SchedulesTest do
       customer: customer,
       valid_attrs: %{provider_id: provider_id}
     } do
-      DateTimeMock.set_date(~U[2021-01-10 10:00:00.000000Z])
+      stub(GoBarber.DateTime.Mock, :utc_now, fn -> ~U[2021-01-02 00:00:00.000000Z] end)
 
       assert_raise RuntimeError, "date can't be a past date", fn ->
         Schedules.create_appointment(
@@ -127,8 +128,6 @@ defmodule GoBarber.SchedulesTest do
 
   describe "list_provider_month_availability/3" do
     setup do
-      init_datetime_mock()
-
       %User{id: provider_id} = user_fixture(%{user_role: "provider"})
 
       %{provider_id: provider_id}
