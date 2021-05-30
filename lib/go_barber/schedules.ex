@@ -39,6 +39,21 @@ defmodule GoBarber.Schedules do
     |> Repo.all()
   end
 
+  def list_provider_day_availability(provider_id, date) do
+    datetime = DateTime.new!(date, Time.new!(0, 0, 0))
+
+    appointments =
+      from(a in Appointment,
+        where:
+          a.provider_id == ^provider_id and
+            a.date >= ^datetime and
+            a.date < datetime_add(^datetime, 1, "day")
+      )
+      |> Repo.all()
+
+    day_availability(appointments, datetime)
+  end
+
   def list_provider_month_availability(provider_id, year, month) do
     date = DateTime.new!(Date.new!(year, month, 1), Time.new!(0, 0, 0))
 

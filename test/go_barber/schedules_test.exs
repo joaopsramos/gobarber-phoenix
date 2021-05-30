@@ -159,4 +159,39 @@ defmodule GoBarber.SchedulesTest do
       assert Enum.find(month_availability, &(&1.day == 7)) == %{day: 7, available: false}
     end
   end
+
+  describe "list_provider_day_availability/2" do
+    setup do
+      %User{id: provider_id} = user_fixture(%{user_role: "provider"})
+
+      %{provider_id: provider_id}
+    end
+
+    test "with valid params returns the provider day availability", %{provider_id: provider_id} do
+      date = ~D[2021-01-01]
+
+      available_day =
+        for hour <- Schedules.hour_interval() do
+          %{hour: hour, available: true}
+        end
+
+      assert Schedules.list_provider_day_availability(provider_id, date) == available_day
+
+      appointment_fixture(provider_id, %{date: DateTime.new!(date, Time.new!(9, 0, 0))})
+      appointment_fixture(provider_id, %{date: DateTime.new!(date, Time.new!(11, 0, 0))})
+      appointment_fixture(provider_id, %{date: DateTime.new!(date, Time.new!(15, 0, 0))})
+
+      partially_available_day =
+        for %{hour: hour} = availability <- available_day do
+          if hour in [9, 11, 15] do
+            %{availability | available: false}
+          else
+            availability
+          end
+        end
+
+      assert Schedules.list_provider_day_availability(provider_id, date) ==
+               partially_available_day
+    end
+  end
 end
