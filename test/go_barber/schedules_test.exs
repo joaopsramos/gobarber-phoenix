@@ -64,23 +64,23 @@ defmodule GoBarber.SchedulesTest do
       customer: customer,
       valid_attrs: %{provider_id: provider_id} = valid_attrs
     } do
-      assert {:error, %Ecto.Changeset{errors: [date: {"hour must be between 8 and 17", _}]}} =
-               Schedules.create_appointment(
-                 customer,
-                 %{date: ~U[2021-06-01 07:00:00.000000Z], provider_id: provider_id}
-               )
+      {:error, %Ecto.Changeset{} = changeset} =
+        Schedules.create_appointment(customer, %{
+          date: ~U[2021-06-01 07:00:00.000000Z],
+          provider_id: provider_id
+        })
 
-      assert {:error, %Ecto.Changeset{errors: [date: {"hour must be between 8 and 17", _}]}} =
-               Schedules.create_appointment(
-                 customer,
-                 %{date: ~U[2021-06-01 18:00:00.000000Z], provider_id: provider_id}
-               )
+      assert errors_on(changeset)[:date] == ["hour must be between 8 and 17"]
 
-      assert {:ok, %Appointment{}} =
-               Schedules.create_appointment(
-                 customer,
-                 valid_attrs
-               )
+      {:error, %Ecto.Changeset{} = changeset} =
+        Schedules.create_appointment(
+          customer,
+          %{date: ~U[2021-06-01 18:00:00.000000Z], provider_id: provider_id}
+        )
+
+      assert errors_on(changeset)[:date] == ["hour must be between 8 and 17"]
+
+      assert {:ok, %Appointment{}} = Schedules.create_appointment(customer, valid_attrs)
     end
 
     test "if another appointment is already on the same date raises an error", %{
