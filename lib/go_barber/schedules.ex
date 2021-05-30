@@ -100,17 +100,14 @@ defmodule GoBarber.Schedules do
     @start_hour..(@end_hour - @scheduling_time)
   end
 
-  defp validate_ids_not_equal(%Ecto.Changeset{valid?: true} = changeset, customer) do
-    case Ecto.Changeset.get_field(changeset, :provider_id) do
-      nil ->
-        changeset
-
-      provider_id ->
-        if customer.id == provider_id do
-          raise "you can't create an appointment with yourself"
-        else
-          changeset
-        end
+  defp validate_ids_not_equal(
+         %Ecto.Changeset{valid?: true, changes: %{provider_id: provider_id}} = changeset,
+         customer
+       ) do
+    if customer.id == provider_id do
+      raise "you can't create an appointment with yourself"
+    else
+      changeset
     end
   end
 
