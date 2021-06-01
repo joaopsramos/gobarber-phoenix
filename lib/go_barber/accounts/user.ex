@@ -3,6 +3,8 @@ defmodule GoBarber.Accounts.User do
   import Ecto.Changeset
   alias GoBarber.Schedules.Appointment
 
+  @possible_roles ~w(customer provider)
+
   @required_attrs ~w(name email user_role)a
   @optional_attrs ~w(avatar)a
 
@@ -35,6 +37,7 @@ defmodule GoBarber.Accounts.User do
     |> cast(attrs, [:password])
     |> validate_required([:password])
     |> validate_length(:password, min: 8)
+    |> validate_inclusion(:user_role, @possible_roles)
     |> put_pass_hash()
   end
 
