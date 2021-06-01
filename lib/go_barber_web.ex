@@ -69,6 +69,12 @@ defmodule GoBarberWeb do
       import Phoenix.Controller
       import Phoenix.LiveView.Router
       import GoBarberWeb.Auth, only: [authenticate_user: 2]
+
+      import GoBarberWeb.Helpers.ControllerHelpers,
+        only: [
+          requires_customer: 2,
+          requires_provider: 2
+        ]
     end
   end
 
