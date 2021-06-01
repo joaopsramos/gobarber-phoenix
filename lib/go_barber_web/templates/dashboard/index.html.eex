@@ -1,4 +1,21 @@
-<div>
-  oi
+<div class="bg-background h-screen">
+  <div class="bg-black-medium">
+    <div class="container mx-auto flex justify-between items-center text-gray">
+      <div class="flex items-center my-8">
+        <img src="<%= Routes.static_url(@conn, "/images/logo.svg") %>" alt="Logo" class="max-h-20">
+        <div class="flex items-center ml-20">
+          <%= bi_icon "user-circle", class: "text-6xl", type: :solid %>
+          <div class="flex flex-col ml-4">
+            <span>Bem vindo,</span>
+            <span class="text-orange"><%= @current_user.name %></span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <%= link to: Routes.session_path(@conn, :delete), method: "delete" do %>
+        <%= fi_icon "power", class: "w-5 h-5 transition-all duration-200 hover:opacity-70" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
-<%= link "Log out", to: Routes.session_path(@conn, :delete), method: "delete" %>
