@@ -27,6 +27,19 @@ defmodule GoBarberWeb.Router do
 
     get "/signup", UserController, :new
 
+    get "/provider", ProviderController, :index
+    get "/customer", CustomerController, :index
+  end
+
+  scope "/provider", GoBarberWeb.Provider, as: :provider do
+    pipe_through [:browser, :authenticate_user, :requires_provider]
+
+    get "/dashboard", DashboardController, :index
+  end
+
+  scope "/customer", GoBarberWeb.Customer, as: :customer do
+    pipe_through [:browser, :authenticate_user, :requires_customer]
+
     get "/dashboard", DashboardController, :index
   end
 

@@ -1,7 +1,5 @@
-defmodule GoBarberWeb.DashboardController do
+defmodule GoBarberWeb.Customer.DashboardController do
   use GoBarberWeb, :controller
-
-  plug :authenticate_user
 
   def index(conn, _params) do
     render(conn, "index.html")
