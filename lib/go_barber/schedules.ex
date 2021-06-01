@@ -51,7 +51,7 @@ defmodule GoBarber.Schedules do
       )
       |> Repo.all()
 
-    day_availability(appointments, datetime)
+    day_availability(appointments)
   end
 
   def list_provider_month_availability(provider_id, year, month) do
@@ -70,7 +70,7 @@ defmodule GoBarber.Schedules do
 
     1..days
     |> Enum.map(fn day ->
-      availability = day_availability(appointments, Date.new!(year, month, day))
+      availability = day_availability(appointments)
 
       %{
         day: day,
@@ -79,19 +79,16 @@ defmodule GoBarber.Schedules do
     end)
   end
 
-  defp day_availability(appointments, date_to_compare) do
+  defp day_availability(appointments) do
     hour_interval()
     |> Enum.map(fn hour ->
-      found =
-        Enum.find(appointments, fn %{date: date} ->
-          Date.compare(date, date_to_compare) == :eq && date.hour == hour
-        end)
+      found? = Enum.find(appointments, &(&1.date.hour == hour))
 
-      available = if found, do: false, else: true
+      # available = if found?, do: false, else: true
 
       %{
         hour: hour,
-        available: available
+        available: !found? && hour > GoBarber.DateTime.utc_now().hour
       }
     end)
   end

@@ -177,21 +177,28 @@ defmodule GoBarber.SchedulesTest do
 
       assert Schedules.list_provider_day_availability(provider_id, date) == available_day
 
-      appointment_fixture(provider_id, %{date: DateTime.new!(date, Time.new!(9, 0, 0))})
-      appointment_fixture(provider_id, %{date: DateTime.new!(date, Time.new!(11, 0, 0))})
-      appointment_fixture(provider_id, %{date: DateTime.new!(date, Time.new!(15, 0, 0))})
+      # change the current time to 10 o'clock, making 8, 9 and 10 hours unavailable
+      stub(GoBarber.DateTime.Mock, :utc_now, fn -> ~U[2021-01-01 10:00:00.000000Z] end)
 
-      partially_available_day =
-        for %{hour: hour} = availability <- available_day do
-          if hour in [9, 11, 15] do
-            %{availability | available: false}
-          else
-            availability
-          end
-        end
+      refute Schedules.list_provider_day_availability(provider_id, date) == available_day
 
-      assert Schedules.list_provider_day_availability(provider_id, date) ==
-               partially_available_day
+      hours_that_became_unavailable = [8, 9, 10]
+      hours_to_schedule = [11, 13, 17]
+
+      Enum.each(hours_to_schedule, fn hour ->
+        appointment_fixture(provider_id, %{date: DateTime.new!(date, Time.new!(hour, 0, 0))})
+      end)
+
+      unavailable_hours =
+        provider_id
+        |> Schedules.list_provider_day_availability(date)
+        |> Enum.filter(&(&1.hour in (hours_that_became_unavailable ++ hours_to_schedule)))
+
+      expected_response =
+        for hour <- hours_that_became_unavailable ++ hours_to_schedule,
+            do: %{hour: hour, available: false}
+
+      assert unavailable_hours == expected_response
     end
   end
 end
