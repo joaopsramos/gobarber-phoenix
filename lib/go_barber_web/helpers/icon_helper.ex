@@ -5,11 +5,14 @@ defmodule GoBarberWeb.Helpers.IconHelper do
 
   def fi_icon(icon, opts \\ []) do
     classes = opts[:class] || ""
-    updated_opts = Keyword.put(opts, :class, classes <> " fi-icon")
+    attrs = Keyword.put(opts, :class, classes <> " fi-icon")
 
-    content_tag :svg, updated_opts do
-      tag(:use, "xlink:href": "/images/feather-sprite.svg\##{icon}")
-    end
+    content_tag(
+      :svg,
+      tag(:use, "xlink:href": "/images/feather-sprite.svg\##{icon}"),
+      attrs
+    )
+  end
 
   def bi_icon(icon, opts \\ []) do
     classes = opts[:class] || ""
