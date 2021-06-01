@@ -24,6 +24,7 @@ defmodule GoBarberWeb do
       import Plug.Conn
       import GoBarberWeb.Gettext
       import GoBarberWeb.Auth, only: [authenticate_user: 2]
+      import GoBarberWeb.Helpers.{ControllerHelpers, ConnHelper}
       alias GoBarberWeb.Router.Helpers, as: Routes
     end
   end
