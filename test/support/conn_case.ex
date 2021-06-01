@@ -23,6 +23,7 @@ defmodule GoBarberWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import GoBarberWeb.ConnCase
+      import GoBarber.TestHelpers
 
       alias GoBarberWeb.Router.Helpers, as: Routes
 
