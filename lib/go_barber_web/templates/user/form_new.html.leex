@@ -1,4 +1,4 @@
-<%= f = form_for(@changeset, "/signup",
+<%= f = form_for(@changeset, Routes.user_path(@socket, :create),
           phx_change: "change",
           class: "text-gray-hard w-80"
         ) %>
