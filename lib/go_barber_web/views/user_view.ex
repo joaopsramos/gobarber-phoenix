@@ -1,5 +1,5 @@
 defmodule GoBarberWeb.UserView do
   use GoBarberWeb, :view
 
-  alias GoBarberWeb.UserLive
+  alias GoBarberWeb.ComponentLive
 end

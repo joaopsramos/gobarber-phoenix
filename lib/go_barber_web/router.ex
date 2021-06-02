@@ -25,7 +25,8 @@ defmodule GoBarberWeb.Router do
     post "/session", SessionController, :create
     delete "/session", SessionController, :delete
 
-    get "/signup", UserController, :new
+    live "/signup", UserLive.New
+    post "/signup", UserController, :create
 
     get "/provider", ProviderController, :index
     get "/customer", CustomerController, :index
