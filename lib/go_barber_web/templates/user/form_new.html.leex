@@ -31,7 +31,10 @@
         f: f,
         icon: "user",
         field: :name,
-        input: [placeholder: "Nome"]
+        input: [
+          placeholder: "Nome",
+          value: input_value(f, :name)
+        ]
       ) %>
 </div>
 <div class="mb-2">
@@ -42,7 +45,10 @@
         f: f,
         icon: "mail",
         field: :email,
-        input: [placeholder: "E-mail"]
+        input: [
+          placeholder: "E-mail",
+          value: input_value(f, :email)
+        ]
       ) %>
 </div>
 <div>
