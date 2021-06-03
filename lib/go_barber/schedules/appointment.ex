@@ -46,7 +46,7 @@ defmodule GoBarber.Schedules.Appointment do
            changes: %{date: appointment_date}
          } = changeset
        ) do
-    current_date = GoBarber.DateTime.utc_now()
+    current_date = GoBarber.DateProvider.utc_now()
 
     if DateTime.compare(appointment_date, current_date) == :lt do
       raise "date can't be a past date"
