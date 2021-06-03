@@ -1,7 +1,7 @@
 use Mix.Config
 
 config :go_barber,
-  datetime_impl: GoBarber.DateTime.Mock
+  date_provider_impl: GoBarber.DateProvider.Mock
 
 # Configure your database
 #

@@ -9,7 +9,7 @@ use Mix.Config
 
 config :go_barber,
   ecto_repos: [GoBarber.Repo],
-  datetime_impl: DateTime
+  date_provider_impl: GoBarber.DateProvider.Gobarber
 
 # Configures the endpoint
 config :go_barber, GoBarberWeb.Endpoint,
