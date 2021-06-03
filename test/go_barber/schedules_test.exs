@@ -8,7 +8,8 @@ defmodule GoBarber.SchedulesTest do
   alias GoBarber.Schedules.Appointment
 
   setup do
-    stub(GoBarber.DateTime.Mock, :utc_now, fn -> ~U[2021-01-01 00:00:00.000000Z] end)
+    stub(GoBarber.DateProvider.Mock, :utc_now, fn -> ~U[2021-01-01 00:00:00.000000Z] end)
+    stub(GoBarber.DateProvider.Mock, :utc_today, fn -> ~D[2021-01-01] end)
 
     :ok
   end
@@ -106,7 +107,7 @@ defmodule GoBarber.SchedulesTest do
       customer: customer,
       valid_attrs: %{provider_id: provider_id}
     } do
-      stub(GoBarber.DateTime.Mock, :utc_now, fn -> ~U[2021-01-02 00:00:00.000000Z] end)
+      stub(GoBarber.DateProvider.Mock, :utc_now, fn -> ~U[2021-01-02 00:00:00.000000Z] end)
 
       assert_raise RuntimeError, "date can't be a past date", fn ->
         Schedules.create_appointment(
@@ -178,7 +179,7 @@ defmodule GoBarber.SchedulesTest do
       assert Schedules.list_provider_day_availability(provider_id, date) == available_day
 
       # change the current time to 10 o'clock, making 8, 9 and 10 hours unavailable
-      stub(GoBarber.DateTime.Mock, :utc_now, fn -> ~U[2021-01-01 10:00:00.000000Z] end)
+      stub(GoBarber.DateProvider.Mock, :utc_now, fn -> ~U[2021-01-01 10:00:00.000000Z] end)
 
       refute Schedules.list_provider_day_availability(provider_id, date) == available_day
 
