@@ -38,10 +38,10 @@ defmodule GoBarberWeb.Router do
     get "/dashboard", DashboardController, :index
   end
 
-  scope "/customer", GoBarberWeb.Customer, as: :customer do
+  scope "/customer", GoBarberWeb do
     pipe_through [:browser, :authenticate_user, :requires_customer]
 
-    get "/dashboard", DashboardController, :index
+    live "/dashboard", CustomerLive.Dashboard, :index
   end
 
   # Other scopes may use custom stacks.

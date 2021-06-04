@@ -1,3 +1,0 @@
-<div class="bg-background h-screen">
-  <%= render "header.html", assigns %>
-</div>
