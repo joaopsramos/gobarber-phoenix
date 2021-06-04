@@ -82,7 +82,7 @@ defmodule GoBarber.Schedules do
   defp day_availability(date, appointments) do
     compared_date = Date.compare(date, GoBarber.DateProvider.utc_today())
 
-    hour_interval()
+    hours_range()
     |> Enum.map(fn hour ->
       found? = Enum.find(appointments, &(&1.date.hour == hour))
 
@@ -100,7 +100,7 @@ defmodule GoBarber.Schedules do
     end)
   end
 
-  def hour_interval() do
+  def hours_range() do
     @start_hour..(@end_hour - @scheduling_time)
   end
 

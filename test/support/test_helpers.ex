@@ -34,17 +34,9 @@ defmodule GoBarber.TestHelpers do
   def create_appointments_for_a_day(provider_id, year, month, day) do
     %{id: customer_id} = user_fixture()
 
-    %{
-      scheduling_time: scheduling_time,
-      start_hour: start_hour,
-      end_hour: end_hour
-    } = Schedules.get_schedules_constants()
-
-    appointments_interval = start_hour..(end_hour - scheduling_time)
-
     base_date = Date.new!(year, month, day)
 
-    appointments_interval
+    Schedules.hours_range()
     |> Enum.reduce(Multi.new(), fn hour, multi ->
       date = DateTime.new!(base_date, Time.new!(hour, 0, 0))
 

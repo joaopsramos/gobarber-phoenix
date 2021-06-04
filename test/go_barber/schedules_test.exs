@@ -172,7 +172,7 @@ defmodule GoBarber.SchedulesTest do
       date = ~D[2021-01-01]
 
       available_day =
-        for hour <- Schedules.hour_interval() do
+        for hour <- Schedules.hours_range() do
           %{hour: hour, available: true}
         end
 
