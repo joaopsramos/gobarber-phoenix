@@ -158,6 +158,7 @@ defmodule GoBarber.SchedulesTest do
 
       assert Enum.find(month_availability, &(&1.day == 2)) == %{day: 2, available: false}
       assert Enum.find(month_availability, &(&1.day == 7)) == %{day: 7, available: false}
+      assert Enum.find(month_availability, &(&1.day == 10)) == %{day: 10, available: true}
     end
   end
 

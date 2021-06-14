@@ -74,7 +74,7 @@ defmodule GoBarber.Schedules do
 
       %{
         day: day,
-        available: Enum.all?(availability, & &1.available)
+        available: Enum.any?(availability, & &1.available)
       }
     end)
   end
