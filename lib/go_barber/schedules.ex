@@ -84,7 +84,10 @@ defmodule GoBarber.Schedules do
 
     hours_range()
     |> Enum.map(fn hour ->
-      found? = Enum.find(appointments, &(&1.date.hour == hour))
+      found? =
+        Enum.find(appointments, fn appointment ->
+          Date.compare(date, appointment.date) == :eq && appointment.date.hour == hour
+        end)
 
       valid_hour? =
         cond do
