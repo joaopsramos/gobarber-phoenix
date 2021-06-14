@@ -102,6 +102,8 @@ defmodule GoBarberWeb do
       import GoBarberWeb.ErrorHelpers
       import GoBarberWeb.Gettext
       alias GoBarberWeb.Router.Helpers, as: Routes
+
+      alias GoBarberWeb.ComponentLive
     end
   end
 
