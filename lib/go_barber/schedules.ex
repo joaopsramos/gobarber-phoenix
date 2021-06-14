@@ -54,6 +54,10 @@ defmodule GoBarber.Schedules do
     day_availability(datetime, appointments)
   end
 
+  def list_provider_month_availability(provider_id, date) do
+    list_provider_month_availability(provider_id, date.year, date.month)
+  end
+
   def list_provider_month_availability(provider_id, year, month) do
     date = DateTime.new!(Date.new!(year, month, 1), Time.new!(0, 0, 0))
 
