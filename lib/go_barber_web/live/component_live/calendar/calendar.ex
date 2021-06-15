@@ -16,9 +16,10 @@ defmodule GoBarberWeb.ComponentLive.Calendar do
   end
 
   def update(
-        %{disabled_days: disabled_days, current_date: current_date, target: target},
+        %{current_date: current_date, target: target} = default_assigns,
         socket
       ) do
+    disabled_days = default_assigns[:disabled_days] || []
     unavailable_dates = build_unavailable_dates(disabled_days, current_date)
 
     week_rows = week_rows(current_date, unavailable_dates)

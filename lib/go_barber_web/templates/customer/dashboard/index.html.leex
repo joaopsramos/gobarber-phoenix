@@ -1,4 +1,4 @@
-<div class="bg-background h-screen">
+<div class="bg-background min-h-screen h-full">
   <%= render CustomerView, "header.html", assigns %>
 
   <div class="container mx-auto">
@@ -6,9 +6,9 @@
 
       <h1 class="mt-4 text-white text-2xl">Seus agendamentos</h1>
 
-      <ol class="w-full max-w-xl mt-6">
+      <ol class="w-full max-w-xl mt-6 max-h-72 overflow-y-scroll styled-scroll">
         <%= for appointment <- @appointments do %>
-        <li class="aabbb flex items-center justify-between p-3 mb-2 bg-shape border-2 border-shape
+        <li class="flex items-center justify-between p-3 mb-2 bg-shape border-2 border-shape
               rounded-lg hover:border-orange transition-all duration-200 relative">
           <div class="flex items-center">
             <%= bi_icon "user-circle", class: "text-6xl text-inputs", type: :solid %>
