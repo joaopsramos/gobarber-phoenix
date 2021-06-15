@@ -32,10 +32,10 @@ defmodule GoBarberWeb.Router do
     get "/customer", CustomerController, :index
   end
 
-  scope "/provider", GoBarberWeb.Provider, as: :provider do
+  scope "/provider", GoBarberWeb do
     pipe_through [:browser, :authenticate_user, :requires_provider]
 
-    get "/dashboard", DashboardController, :index
+    live "/dashboard", ProviderLive.Dashboard, :index
   end
 
   scope "/customer", GoBarberWeb do
