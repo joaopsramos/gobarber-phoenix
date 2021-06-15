@@ -1,4 +1,4 @@
-defmodule GoBarberWeb.CustomerLive.CalendarContainer do
+defmodule GoBarberWeb.CustomerLive.Appointments.CalendarContainer do
   use GoBarberWeb, :live_component
 
   alias GoBarber.Schedules

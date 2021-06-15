@@ -41,7 +41,7 @@
         <h2 class="text-white font-medium text-2xl mb-6">Escolha a data</h2>
 
         <div>
-          <%= live_component @socket, CustomerLive.CalendarContainer,
+          <%= live_component @socket, CustomerLive.Appointments.CalendarContainer,
                 id: "calendar-manager",
                 provider_id: @selected_provider,
                 selected_date: @selected_date
