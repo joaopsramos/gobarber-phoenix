@@ -1,0 +1,48 @@
+<div id="calendar" class="w-full h-full rounded-lg bg-black-medium">
+  <div class="flex items-center justify-between p-4 bg-shape rounded-t-lg">
+    <a href="#" phx-click="prev-month" phx-target="<%= @target %>"
+      phx-value-date="<%= Calendar.strftime(@current_date, "%Y-%m-%d") %>">
+      <%= fi_icon "arrow-left", class: "w-4 h-4" %>
+    </a>
+    <h3 class="text-white font-medium text-sm">
+      <%= Calendar.strftime(@current_date, "%B %Y") %>
+    </h3>
+    <a href="#" phx-click="next-month" phx-target="<%= @target %>"
+      phx-value-date="<%= Calendar.strftime(@current_date, "%Y-%m-%d") %>">
+      <%= fi_icon "arrow-right", class: "w-4 h-4" %>
+    </a>
+  </div>
+  <div class="p-1.5 text-gray-hard">
+    <div class="table w-full">
+      <div class="table-row-group">
+        <div class="table-row">
+          <%= for day <- @week_days do %>
+          <div class="table-cell">
+            <div class="pt-2.5 px-4 pb-4 <%= if day.number == Date.day_of_week(@current_date), do: "text-orange" %>">
+              <%= day.letter %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="table-row-group">
+        <%= for week <- @week_rows do %>
+        <div class="table-row">
+          <%= for %{date: date, available: available} <- week do %>
+          <div class="table-cell p-1">
+            <%= live_component @socket, ComponentLive.Day,
+                  id: date,
+                  target: @target,
+                  date: date,
+                  available: available,
+                  current_date: @current_date
+            %>
+          </div>
+          <% end %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
