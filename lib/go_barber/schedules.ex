@@ -34,6 +34,19 @@ defmodule GoBarber.Schedules do
     }
   end
 
+  def list_customer_appointments(customer_id) do
+    current_date = DateTime.utc_now()
+
+    from(a in Appointment,
+      where:
+        a.customer_id == ^customer_id and
+          a.date > ^current_date,
+      order_by: [asc: a.date],
+      preload: :provider
+    )
+    |> Repo.all()
+  end
+
   def list_providers() do
     from(u in Accounts.User, where: u.user_role == "provider")
     |> Repo.all()

@@ -2,6 +2,38 @@
   <%= render CustomerView, "header.html", assigns %>
 
   <div class="container mx-auto">
-    <%= live_redirect "Fazer um agendamento", to: Routes.customer_appointments_new_path(@socket, :new) %>
+    <div class="flex flex-col justify-center items-center">
+
+      <h1 class="mt-4 text-white text-2xl">Seus agendamentos</h1>
+
+      <ol class="w-full max-w-xl mt-6">
+        <%= for appointment <- @appointments do %>
+        <li class="aabbb flex items-center justify-between p-3 mb-2 bg-shape border-2 border-shape
+              rounded-lg hover:border-orange transition-all duration-200 relative">
+          <div class="flex items-center">
+            <%= bi_icon "user-circle", class: "text-6xl text-inputs", type: :solid %>
+            <span class="ml-4 text-white text-xl font-medium">
+              <%= appointment.provider.name %>
+            </span>
+          </div>
+          <div class="text-gray">
+            <div class="flex items-center">
+              <%= fi_icon "calendar", class: "text-orange h-3 w-3 mr-2" %>
+              <%= Calendar.strftime(appointment.date, "%Y/%m/%d") %>
+            </div>
+            <div class="flex items-center">
+              <%= fi_icon "clock", class: "text-orange h-3 w-3 mr-2" %>
+              <%= Calendar.strftime(appointment.date, "%H:00") %>
+            </div>
+          </div>
+        </li>
+        <% end %>
+      </ol>
+
+      <%= live_redirect "Marcar agendamento",
+            to: Routes.customer_appointments_new_path(@socket, :new),
+            class: "mt-4 bg-orange w-max text-inputs p-4 rounded-lg hover:opacity-80 transition-all
+                    duration-200 font-medium" %>
+    </div>
   </div>
 </div>
