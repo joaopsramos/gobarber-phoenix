@@ -42,6 +42,7 @@ defmodule GoBarberWeb.Router do
     pipe_through [:browser, :authenticate_user, :requires_customer]
 
     live "/dashboard", CustomerLive.Dashboard, :index
+    live "/appointments/new", CustomerLive.Appointments.New, :new
   end
 
   # Other scopes may use custom stacks.

@@ -1,74 +1,7 @@
 <div class="bg-background h-screen">
-  <%= render "header.html", assigns %>
+  <%= render CustomerView, "header.html", assigns %>
 
-  <div class="container mx-auto mt-8">
-    <%= f = form_for @changeset, "#", phx_submit: "submit", class: "text-gray max-w-5xl mx-auto" %>
-
-    <div class="flex">
-      <div x-data="{ selected_provider: '<%= List.first(@providers) != [] && List.first(@providers).id %>' }"
-        class="w-72 mr-7">
-        <h2 class="text-white font-medium text-2xl mb-6">Cabeleireiros</h2>
-        <ul class="max-w-xs">
-          <%= for provider <- @providers do %>
-          <li @click="selected_provider = '<%= provider.id %>'" class="flex mb-4
-                rounded-lg py-5 px-4 space-x-5 bg-shape border-2 cursor-pointer transform
-                transition-all duration-200 hover:border-orange
-                hover:translate-x-2" :class="selected_provider === '<%= provider.id %>' ?
-                'border-orange' : 'border-shape'">
-            <%= bi_icon "user-circle", class: "text-7xl text-inputs", type: :solid %>
-            <div>
-              <span class=" capitalize text-white text-lg font-medium">
-                <%= provider.name %>
-              </span>
-              <div class="flex flex-col mt-3 text-xs">
-                <span class="flex items-center">
-                  <%= fi_icon "calendar", class: "text-orange h-3 w-3 mr-2" %>
-                  Segunda à sexta
-                </span>
-                <span class="flex items-center">
-                  <%= fi_icon "clock", class: "text-orange h-3 w-3 mr-2" %>
-                  8h às 18h
-                </span>
-              </div>
-            </div>
-          </li>
-          <% end %>
-        </ul>
-
-        <%= hidden_input f, :provider_id, ":value": "selected_provider" %>
-      </div>
-
-      <div>
-        <h2 class="text-white font-medium text-2xl mb-6">Escolha o horário</h2>
-
-        <ul x-data="{ selected_hour: '<%= @default_hour %>' }">
-          <%= for period <- @horaries do %>
-          <li class="mb-6">
-            <span><%= period.label %></span>
-            <ol class="flex space-x-2 mt-3">
-              <%= for hour <- period.hours do %>
-              <li @click="selected_hour = '<%= hour %>'" class="py-2.5 px-3 border border-shape
-                    transition-all duration-200 font-medium rounded-lg cursor-pointer
-                  hover:border-orange" :class="selected_hour === '<%= hour %>' ?
-                    'bg-orange text-inputs' : 'bg-shape text-white'">
-                <%= hour |> Time.new!(0, 0) |> Calendar.strftime("%H:%M") %>
-              </li>
-              <% end %>
-            </ol>
-          </li>
-          <% end %>
-
-          <%= hidden_input f, :hour, ":value": "selected_hour" %>
-        </ul>
-      </div>
-    </div>
-
-    <div class="flex items-center">
-      <%= submit "Criar agendamento",
-            class: "mx-auto w-full max-w-xs py-4 bg-orange text-inputs rounded-lg font-medium
-                    hover:opacity-80 transition-all duration-200"
-      %>
-    </div>
-    </form>
+  <div class="container mx-auto">
+    <%= live_redirect "Fazer um agendamento", to: Routes.customer_appointments_new_path(@socket, :new) %>
   </div>
 </div>

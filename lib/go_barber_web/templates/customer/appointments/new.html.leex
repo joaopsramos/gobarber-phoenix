@@ -1,0 +1,88 @@
+<div class="bg-background h-screen">
+  <%= render CustomerView, "header.html", assigns %>
+
+  <div class="container mx-auto mt-8">
+    <%= f = form_for @changeset, "#", phx_submit: "submit", class: "text-gray mx-auto" %>
+
+    <div class="flex justify-center">
+      <div x-data="{ selected_provider: '<%= @selected_provider %>' }" class="w-72 mr-16">
+        <h2 class="text-white font-medium text-2xl mb-6">Cabeleireiros</h2>
+        <ul class="max-w-xs">
+          <%= for provider <- @providers do %>
+          <li @click="selected_provider = '<%= provider.id %>'" phx-click="change_provider"
+            phx-value-provider_id="<%= provider.id %>" class="flex items-center mb-4 rounded-lg
+                py-5 px-4 space-x-5 bg-shape border-2 cursor-pointer transform transition-all
+                duration-200 hover:border-orange hover:translate-x-2" :class="
+                selected_provider === '<%= provider.id %>' ? 'border-orange' : 'border-shape'">
+            <%= bi_icon "user-circle", class: "text-7xl text-inputs", type: :solid %>
+            <div>
+              <span class=" capitalize text-white text-lg font-medium">
+                <%= provider.name %>
+              </span>
+              <div class="flex flex-col mt-3 text-xs">
+                <span class="flex items-center">
+                  <%= fi_icon "calendar", class: "text-orange h-3 w-3 mr-2" %>
+                  Segunda à sexta
+                </span>
+                <span class="flex items-center">
+                  <%= fi_icon "clock", class: "text-orange h-3 w-3 mr-2" %>
+                  8h às 18h
+                </span>
+              </div>
+            </div>
+          </li>
+          <% end %>
+        </ul>
+
+        <%= hidden_input f, :provider_id, ":value": "selected_provider" %>
+      </div>
+
+      <div class="mr-16">
+        <h2 class="text-white font-medium text-2xl mb-6">Escolha a data</h2>
+
+        <div>
+          <%= live_component @socket, CustomerLive.CalendarContainer,
+                id: "calendar-manager",
+                provider_id: @selected_provider,
+                selected_date: @selected_date
+          %>
+
+          <%= hidden_input f, :date, value: @selected_date %>
+        </div>
+      </div>
+
+      <div class="w-72">
+        <h2 class="text-white font-medium text-2xl mb-6">Escolha o horário</h2>
+
+        <ul x-data="{ selected_hour: '<%= @default_hour %>' }">
+          <%= for period <- @horaries do %>
+          <li class="mb-4">
+            <span><%= period.label %></span>
+            <ol class="flex flex-wrap mt-3">
+              <%= for hour <- period.hours do %>
+              <li x-on:click="selected_hour = '<%= hour %>'" class="py-2.5 px-3 border font-medium
+                    transition-all duration-200 rounded-lg cursor-pointer mr-2 mb-2
+                  hover:border-orange" :class="{'bg-orange border-orange text-inputs' :
+                    selected_hour === '<%= hour %>', 'bg-shape border-shape text-white' :
+                    selected_hour !== '<%= hour %>'}">
+                <%= hour |> Time.new!(0, 0) |> Calendar.strftime("%H:%M") %>
+              </li>
+              <% end %>
+            </ol>
+          </li>
+          <% end %>
+
+          <%= hidden_input f, :hour, "x-bind:value": "selected_hour" %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="flex items-center">
+      <%= submit "Criar agendamento",
+            class: "mx-auto w-full max-w-xs py-4 bg-orange text-inputs rounded-lg font-medium
+                    hover:opacity-80 transition-all duration-200"
+      %>
+    </div>
+    </form>
+  </div>
+</div>
