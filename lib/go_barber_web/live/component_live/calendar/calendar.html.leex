@@ -2,14 +2,14 @@
   <div class="flex items-center justify-between p-4 bg-shape rounded-t-lg">
     <a href="#" phx-click="prev-month" phx-target="<%= @target %>"
       phx-value-date="<%= Calendar.strftime(@current_date, "%Y-%m-%d") %>">
-      <%= fi_icon "arrow-left", class: "w-4 h-4" %>
+      <%= fi_icon "arrow-left", class: "w-4 h-4 text-gray" %>
     </a>
     <h3 class="text-white font-medium text-sm">
       <%= Calendar.strftime(@current_date, "%B %Y") %>
     </h3>
     <a href="#" phx-click="next-month" phx-target="<%= @target %>"
       phx-value-date="<%= Calendar.strftime(@current_date, "%Y-%m-%d") %>">
-      <%= fi_icon "arrow-right", class: "w-4 h-4" %>
+      <%= fi_icon "arrow-right", class: "w-4 h-4 text-gray" %>
     </a>
   </div>
   <div class="p-1.5 text-gray-hard">
@@ -31,7 +31,7 @@
         <div class="table-row">
           <%= for %{date: date, available: available} <- week do %>
           <div class="table-cell p-1">
-            <%= live_component @socket, ComponentLive.Day,
+            <%= live_component @socket, ComponentLive.Calendar.Day,
                   id: date,
                   target: @target,
                   date: date,

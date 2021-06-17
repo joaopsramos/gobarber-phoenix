@@ -1,4 +1,4 @@
-defmodule GoBarberWeb.ComponentLive.Day do
+defmodule GoBarberWeb.ComponentLive.Calendar.Day do
   use GoBarberWeb, :live_component
   use Timex
 
@@ -6,8 +6,8 @@ defmodule GoBarberWeb.ComponentLive.Day do
     ~L"""
     <div
       class="py-2.5 px-3 rounded-lg transition-all duration-200
-            text-center <%= @day_class %>"
-      phx-click="pick-date"
+              text-center <%= @day_class %>"
+      phx-click="change_day"
       phx-target="<%= @target %>"
       phx-value-date='<%= Calendar.strftime(@date, "%Y-%m-%d") %>'
       phx-value-available="<%= @available %>"
@@ -30,7 +30,7 @@ defmodule GoBarberWeb.ComponentLive.Day do
 
   defp day_class(assigns) do
     cond do
-      current_date?(assigns) -> "bg-orange text-black cursor-pointer"
+      current_date?(assigns) -> "bg-orange text-black"
       other_month?(assigns) -> "hidden"
       !assigns.available -> ""
       true -> "bg-shape text-white cursor-pointer"
