@@ -97,7 +97,7 @@ defmodule GoBarber.Schedules do
   end
 
   defp day_availability(date, appointments) do
-    compared_date = Date.compare(date, GoBarber.DateProvider.utc_today())
+    date_to_compare = Date.compare(date, GoBarber.DateProvider.utc_today())
 
     hours_range()
     |> Enum.map(fn hour ->
@@ -108,8 +108,8 @@ defmodule GoBarber.Schedules do
 
       valid_hour? =
         cond do
-          compared_date == :eq && hour > GoBarber.DateProvider.utc_now().hour -> true
-          compared_date == :gt -> true
+          date_to_compare == :eq && hour > GoBarber.DateProvider.utc_now().hour -> true
+          date_to_compare == :gt -> true
           true -> false
         end
 
