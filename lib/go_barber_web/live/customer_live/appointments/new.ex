@@ -36,7 +36,6 @@ defmodule GoBarberWeb.CustomerLive.Appointments.New do
 
   def handle_event("change_provider", %{"provider_id" => provider_id}, socket) do
     horaries = build_horaries(provider_id, socket.assigns.selected_date)
-
     default_hour = get_first_hour(horaries)
 
     assigns = [
@@ -73,7 +72,8 @@ defmodule GoBarberWeb.CustomerLive.Appointments.New do
     end
   end
 
-  def handle_info({:update_date, date}, %{assigns: %{selected_provider: provider_id}} = socket) do
+  def handle_info({"date_changed", _, date}, socket) do
+    provider_id = socket.assigns.selected_provider
     horaries = build_horaries(provider_id, date)
     default_hour = get_first_hour(horaries)
 
