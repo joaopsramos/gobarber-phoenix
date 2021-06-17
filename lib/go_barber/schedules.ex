@@ -47,6 +47,35 @@ defmodule GoBarber.Schedules do
     |> Repo.all()
   end
 
+  def list_all_in_month_from_provider(provider_id, date) do
+    start_of_month = Date.beginning_of_month(date)
+    default_time = Time.new!(1, 0, 0)
+
+    from(a in Appointment,
+      where:
+        a.provider_id == ^provider_id and
+          a.date > ^DateTime.new!(start_of_month, default_time) and
+          a.date < datetime_add(^DateTime.new!(start_of_month, default_time), 1, "month")
+    )
+    |> Repo.all()
+  end
+
+  def list_all_in_day_from_provider(provider_id, date) do
+    default_time = Time.new!(1, 0, 0)
+
+    customer_query = from a in Accounts.User, select: %{name: a.name, avatar: a.avatar}
+
+    from(a in Appointment,
+      where:
+        a.provider_id == ^provider_id and
+          a.date > ^DateTime.new!(date, default_time) and
+          a.date < datetime_add(^DateTime.new!(date, default_time), 1, "day"),
+      order_by: [asc: a.date],
+      preload: [customer: ^customer_query]
+    )
+    |> Repo.all()
+  end
+
   def list_providers() do
     from(u in Accounts.User, where: u.user_role == "provider")
     |> Repo.all()
