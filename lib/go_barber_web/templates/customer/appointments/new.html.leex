@@ -6,7 +6,7 @@
 
     <div class="flex justify-center">
       <div x-data="{ selected_provider: '<%= @selected_provider %>' }" class="w-72 mr-16">
-        <h2 class="text-white font-medium text-2xl mb-6">Cabeleireiros</h2>
+        <h2 class="text-white font-medium text-2xl mb-6">Providers</h2>
         <ul class="max-w-xs">
           <%= for provider <- @providers do %>
           <li @click="selected_provider = '<%= provider.id %>'" phx-click="change_provider"
@@ -22,11 +22,11 @@
               <div class="flex flex-col mt-3 text-xs">
                 <span class="flex items-center">
                   <%= fi_icon "calendar", class: "text-orange h-3 w-3 mr-2" %>
-                  Segunda à sexta
+                  Monday to Friday
                 </span>
                 <span class="flex items-center">
                   <%= fi_icon "clock", class: "text-orange h-3 w-3 mr-2" %>
-                  8h às 18h
+                  8h to 18h
                 </span>
               </div>
             </div>
@@ -38,7 +38,7 @@
       </div>
 
       <div class="mr-16">
-        <h2 class="text-white font-medium text-2xl mb-6">Escolha a data</h2>
+        <h2 class="text-white font-medium text-2xl mb-6">Choose the date</h2>
 
         <div>
           <%= live_component @socket, CustomerLive.Appointments.CalendarContainer,
@@ -52,7 +52,7 @@
       </div>
 
       <div class="w-72">
-        <h2 class="text-white font-medium text-2xl mb-6">Escolha o horário</h2>
+        <h2 class="text-white font-medium text-2xl mb-6">Choose the time</h2>
 
         <ul x-data="{ selected_hour: '<%= @default_hour %>' }">
           <%= for period <- @horaries do %>
@@ -78,7 +78,7 @@
     </div>
 
     <div class="flex items-center">
-      <%= submit "Criar agendamento",
+      <%= submit "Schedule appointment",
             class: "mx-auto w-full max-w-xs py-4 bg-orange text-inputs rounded-lg font-medium
                     hover:opacity-80 transition-all duration-200"
       %>

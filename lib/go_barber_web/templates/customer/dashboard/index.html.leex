@@ -4,7 +4,7 @@
   <div class="container mx-auto">
     <div class="flex flex-col justify-center items-center">
 
-      <h1 class="mt-4 text-white text-2xl">Seus agendamentos</h1>
+      <h1 class="mt-4 text-white text-2xl">Your appointments</h1>
 
       <ol class="w-full max-w-xl mt-6 max-h-72 overflow-y-scroll styled-scroll">
         <%= for appointment <- @appointments do %>
@@ -30,7 +30,7 @@
         <% end %>
       </ol>
 
-      <%= live_redirect "Marcar agendamento",
+      <%= live_redirect "Schedule an appointment",
             to: Routes.customer_appointments_new_path(@socket, :new),
             class: "mt-4 bg-orange w-max text-inputs p-4 rounded-lg hover:opacity-80 transition-all
                     duration-200 font-medium" %>

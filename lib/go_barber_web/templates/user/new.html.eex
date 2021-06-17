@@ -10,7 +10,7 @@
               class: "text-white mt-20 transition-all duration-200 hover:opacity-70" do %>
     <span class="flex items-center">
       <%= fi_icon "arrow-left", class: "w-5 h-5 mr-2 text-white" %>
-      Fazer login
+      Sign In
     </span>
     <% end %>
   </div>

@@ -66,7 +66,7 @@ defmodule GoBarberWeb.ProviderLive.Dashboard do
   end
 
   defp build_horaries(appointments) do
-    acc = [%{label: "Manhã", appointments: []}, %{label: "Tarde", appointments: []}]
+    acc = [%{label: "Morning", appointments: []}, %{label: "Afternoon", appointments: []}]
 
     for %{date: date} = appointment <- appointments, reduce: acc do
       [morning, afternoon] ->

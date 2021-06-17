@@ -9,7 +9,7 @@
                 do: "text-white pb-2 border-b-2 border-orange",
                 else: "cursor-pointer hover:text-gray"
             } transition-colors duration-300" do %>
-  Sou cliente
+  Customer
   <%= radio_button f, :user_role, "customer", class: "hidden", checked: true %>
   <% end %>
 
@@ -18,7 +18,7 @@
                 do: "text-white pb-2 border-b-2 border-orange",
                 else: "cursor-pointer hover:text-gray"
             } transition-colors duration-300" do %>
-  Sou cabeleireiro
+  Provider
   <%= radio_button f, :user_role, "provider", class: "hidden" %>
   <% end %>
 </div>
@@ -32,7 +32,7 @@
         icon: "user",
         field: :name,
         input: [
-          placeholder: "Nome",
+          placeholder: "Name",
           value: input_value(f, :name)
         ]
       ) %>
@@ -60,14 +60,14 @@
         icon: "lock",
         field: :password,
         input: [
-          placeholder: "Senha",
+          placeholder: "Password",
           type: "password",
           value: input_value(f, :password)
         ]
       ) %>
 </div>
 
-<%= submit "Cadastrar", class: "mt-6 bg-orange text-inputs w-full py-4
+<%= submit "Sign Up", class: "mt-6 bg-orange text-inputs w-full py-4
                                 rounded-lg hover:opacity-80 transition-all
                                 duration-200 font-medium" %>
 </form>

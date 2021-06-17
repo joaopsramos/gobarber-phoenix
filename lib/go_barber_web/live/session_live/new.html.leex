@@ -1,7 +1,7 @@
 <div class="flex h-screen bg-background">
   <div class="flex flex-col justify-center items-center w-full max-w-3xl">
     <img src="<%= Routes.static_url(@socket, "/images/logo.svg") %>" alt="Logo">
-    <h1 class="mt-20 mb-6 text-white text-3xl font-medium">Faça seu login</h1>
+    <h1 class="mt-16 mb-8 text-white text-3xl font-medium">Sign in to your account</h1>
 
     <%= f = form_for :session, "/session", class: "text-gray-hard w-80" %>
     <div class="mb-2">
@@ -24,18 +24,18 @@
         field: :password,
         icon: "lock",
         input: [
-          placeholder: "Senha",
+          placeholder: "Password",
           type: "password",
           value: input_value(f, :password)
         ]
       ) %>
     </div>
 
-    <%= submit "Entrar", class: "mt-6 bg-orange text-inputs w-full py-4
+    <%= submit "Sign In", class: "mt-6 bg-orange text-inputs w-full py-4
                                 rounded-lg hover:opacity-80 transition-all
                                 duration-200 font-medium" %>
 
-    <%= link "Esqueci minha senha", to: "#",
+    <%= link "Forgot password?", to: "#",
               class: "mt-6 text-white block text-center transition-all
                       duration-200 hover:opacity-70" %>
     </form>
@@ -44,7 +44,7 @@
               class: "text-white mt-20 transition-all duration-200 hover:opacity-70" do %>
     <span class="flex items-center text-orange">
       <%= fi_icon "log-in", class: "w-5 h-5 mr-2" %>
-      Criar conta
+      Sign Up
     </span>
     <% end %>
   </div>

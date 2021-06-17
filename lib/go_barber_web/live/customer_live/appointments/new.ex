@@ -107,7 +107,7 @@ defmodule GoBarberWeb.CustomerLive.Appointments.New do
   end
 
   defp build_horaries(day_availability) do
-    acc = [%{label: "Manhã", hours: []}, %{label: "Tarde", hours: []}]
+    acc = [%{label: "Morning", hours: []}, %{label: "Afternoon", hours: []}]
 
     for %{hour: hour, available: available} <- day_availability, available, reduce: acc do
       [morning, afternoon] ->
