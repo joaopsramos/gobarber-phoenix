@@ -30,6 +30,8 @@ defmodule GoBarberWeb.Router do
 
     get "/provider", ProviderController, :index
     get "/customer", CustomerController, :index
+
+    live "/profile", ProfileLive, :index
   end
 
   scope "/provider", GoBarberWeb do
