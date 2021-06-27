@@ -2,6 +2,7 @@ defmodule GoBarberWeb.ProfileLive do
   use GoBarberWeb, :live_view
 
   alias GoBarber.Accounts
+  alias GoBarberWeb.Uploaders
   alias GoBarberWeb.Router.Helpers, as: Routes
 
   def render(assigns), do: Phoenix.View.render(GoBarberWeb.ProfileView, "index.html", assigns)
@@ -30,11 +31,16 @@ defmodule GoBarberWeb.ProfileLive do
       uploaded_file =
         consume_uploaded_entry(socket, entry, fn %{path: path} ->
           [file_type | _] = MIME.extensions(entry.client_type)
-          dest = Path.join(["tmp", "#{Path.basename(path)}.#{file_type}"])
-          File.cp!(path, dest)
+          filename = "#{Path.basename(path)}.#{file_type}"
 
-          dest
+          {:ok, file} = Uploaders.Avatar.store(%{filename: filename, path: path})
+
+          Uploaders.Avatar.url(file)
         end)
+
+      if avatar = current_user(socket).avatar do
+        Uploaders.Avatar.delete(avatar)
+      end
 
       {:ok, updated_user} = Accounts.update_avatar(current_user(socket), uploaded_file)
 
