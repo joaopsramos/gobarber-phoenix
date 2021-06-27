@@ -1,1 +1,101 @@
-<div>Hello</div>
+<style>
+  .user-icon {
+    font-size: 11rem;
+  }
+</style>
+
+<div class="h-full min-h-screen bg-background">
+  <header class="flex items-center h-36 bg-black-medium">
+    <div class="container mx-auto">
+      <%= fi_icon "arrow-left",
+            class: "w-7 h-7 text-gray cursor-pointer",
+            onclick: "window.history.back()"
+      %>
+    </div>
+  </header>
+
+  <main class="flex flex-col items-center -mt-24">
+    <div class="flex items-center justify-center relative">
+      <%= f= form_for :avatar, "#", phx_change: "change_avatar" %>
+      <label>
+        <%= if @current_user.avatar  do %>
+        <img src="<%= @current_user.avatar %>" alt="Avatar" class="rounded-full w-44 h-44">
+        <% else %>
+        <%=  bi_icon "user-circle", class: "user-icon text-gray", type: :solid %>
+        <% end %>
+
+        <div class="absolute bottom-0 right-0 p-4 inline-block bg-orange rounded-full
+                    cursor-pointer">
+          <%= live_file_input @uploads.avatar, hidden: true %>
+          <%= fi_icon "camera", class: "w-5 h-5" %>
+        </div>
+      </label>
+      </form>
+    </div>
+
+    <%= f = form_for @changeset, "#", phx_submit: "submit", class: "text-gray mx-auto" %>
+    <div class="w-80 mt-8">
+      <h2 class="justify-self-start text-white text-xl font-medium">My profile</h2>
+
+      <div class="mt-6">
+        <div class="mb-2">
+          <%= live_component @socket, ComponentLive.Input,
+              id: "name",
+              f: f,
+              icon: "user",
+              field: :name
+          %>
+        </div>
+        <div class="mb-6">
+          <%= live_component @socket, ComponentLive.Input,
+              id: "email",
+              f: f,
+              icon: "mail",
+              field: :email
+          %>
+        </div>
+        <div class="mb-2">
+          <%= live_component @socket, ComponentLive.Input,
+              id: "current_password",
+              f: f,
+              icon: "lock",
+              field: :current_password,
+              input: [
+                type: "password",
+                placeholder: "Current password"
+              ]
+          %>
+        </div>
+        <div class="mb-2">
+          <%= live_component @socket, ComponentLive.Input,
+              id: "new_password",
+              f: f,
+              icon: "lock",
+              field: :new_password,
+              input: [
+                type: "password",
+                placeholder: "New password"
+              ]
+          %>
+        </div>
+        <div class="">
+          <%= live_component @socket, ComponentLive.Input,
+              id: "new_password_confirmation",
+              f: f,
+              icon: "lock",
+              field: :new_password_confirmation,
+              input: [
+                type: "password",
+                placeholder: "Confirm new password"
+              ]
+          %>
+        </div>
+      </div>
+
+      <%= submit "Update",
+            class: "w-full mt-6 py-4 bg-orange rounded-lg font-medium text-background
+              transition-all duration-200 hover:opacity-70"
+      %>
+      </form>
+  </main>
+</div>

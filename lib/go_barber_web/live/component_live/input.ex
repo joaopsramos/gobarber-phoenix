@@ -52,9 +52,10 @@ defmodule GoBarberWeb.ComponentLive.Input do
       |> Kernel.!()
 
     input_opts = assigns[:input] || []
+    value = input_value(form, field)
 
     updated_assigns =
-      if value = assigns[:input][:value] do
+      if value || assigns[:input][:value] do
         Map.merge(assigns, %{
           value: value,
           label_for: label_for,

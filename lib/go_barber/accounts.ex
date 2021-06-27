@@ -35,4 +35,27 @@ defmodule GoBarber.Accounts do
     |> User.registration_changeset(attrs)
     |> Repo.insert()
   end
+
+  def update_avatar(user, avatar) do
+    user
+    |> User.avatar_changeset(%{avatar: avatar})
+    |> Repo.update()
+  end
+
+  def update_profile(user, attrs) do
+    user
+    |> User.profile_changeset(attrs)
+    |> Repo.update()
+  end
+
+  def profile_changeset(user, attrs \\ %{}) do
+    User.profile_changeset(user, attrs)
+  end
+
+  def update_user_password(user, password, attrs) do
+    user
+    |> User.password_changeset(attrs)
+    |> User.validate_current_password(password)
+    |> Repo.update()
+  end
 end
