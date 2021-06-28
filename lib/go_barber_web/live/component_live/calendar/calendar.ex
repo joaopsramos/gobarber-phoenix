@@ -119,23 +119,4 @@ defmodule GoBarberWeb.ComponentLive.Calendar do
       send(self(), {"date_changed", period, date})
     end
   end
-
-  # defp update_current_date_if_unavailable(current_date, week_rows) do
-  #   dates = List.flatten(week_rows)
-
-  #   if is_available(current_date, dates) do
-  #     current_date
-  #   else
-  #     current_date
-  #   end
-  # end
-
-  # defp is_available(current_date, dates) do
-  #   %{available: available} =
-  #     Enum.find(dates, fn %{date: date} ->
-  #       Date.compare(current_date, date) == :eq
-  #     end)
-
-  #   available
-  # end
 end
