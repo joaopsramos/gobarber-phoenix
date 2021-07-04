@@ -130,14 +130,14 @@ defmodule GoBarberWeb.ComponentLive.Toasts do
   defp add_and_show(toast) do
     send_update(
       __MODULE__,
-      id: "toast",
+      id: "toast-container",
       action: :add,
       toast: put_icon_and_colors(toast)
     )
 
     send_update_after(
       __MODULE__,
-      [id: "toast", action: :show, toast_id: toast.id],
+      [id: "toast-container", action: :show, toast_id: toast.id],
       @animation_time
     )
   end
@@ -145,13 +145,13 @@ defmodule GoBarberWeb.ComponentLive.Toasts do
   defp hide_and_delete(toast_id, duration) do
     send_update_after(
       __MODULE__,
-      [id: "toast", action: :hide, toast_id: toast_id],
+      [id: "toast-container", action: :hide, toast_id: toast_id],
       duration
     )
 
     send_update_after(
       __MODULE__,
-      [id: "toast", action: :delete, toast_id: toast_id],
+      [id: "toast-container", action: :delete, toast_id: toast_id],
       # + 10s to not change position
       duration + :timer.seconds(10)
     )
