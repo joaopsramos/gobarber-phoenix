@@ -18,7 +18,7 @@ defmodule GoBarberWeb.Router do
   scope "/", GoBarberWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    get "/", Redirect, to: "/signin"
 
     live "/signin", SessionLive.New
 
