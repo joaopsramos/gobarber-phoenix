@@ -5,6 +5,16 @@
 @import "tailwindcss/utilities";
 
 @layer utilities {
+  .flash-error {
+    @apply bg-toast-back-error text-toast-color-error
+  }
+  .flash-success {
+    @apply bg-toast-back-success text-toast-color-success
+  }
+  .flash-info {
+    @apply bg-toast-back-info text-toast-color-info
+  }
+  
   .fi-icon {
     stroke: currentColor;
     stroke-width: 2;

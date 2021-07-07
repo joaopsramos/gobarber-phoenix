@@ -8,11 +8,19 @@ defmodule GoBarberWeb.SessionController do
     case Accounts.authenticate_user_by_email_password(email, pass) do
       {:ok, user} ->
         conn
+        |> put_flash(
+          :success,
+          "Login successful"
+        )
         |> Auth.login(user)
         |> redirect_by_user_role(user)
 
       {:error, _} ->
         conn
+        |> put_flash(
+          :error,
+          "Invalid email/password combination"
+        )
         |> redirect(to: "/signin")
     end
   end

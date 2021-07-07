@@ -1,10 +1,50 @@
 <main role="main">
-  <%= live_component @socket, ComponentLive.Toasts, id: "toast-container" %>
+  <div class="absolute right-0 top-0 p-5 overflow-hidden">
+    <%= for {type, attrs} <- %{
+            info: %{
+              timeout: 10,
+              icon: "info"
+            },
+            success: %{
+              timeout: 10,
+              icon: "check-circle"
+            },
+            error: %{
+              timeout: 10,
+              icon: "alert-triangle"
+            }
+          },
+          flash = live_flash(@flash, type) do %>
+    <div
+      id="flash-<%= type %>"
+      class="mb-4 transform"
+      role="alert"
+      phx-hook="Flash"
+      x-data="{show: <%= !!flash %>}"
+      x-init="setTimeout(() => show = false, 5000)"
+      x-show="show"
+      x-transition:enter="transition ease-out duration-100 transform"
+      x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in duration-300 transform"
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0"
+    >
+      <div class="flex relative py-3 pl-2 rounded-lg shadow-lg flash-<%= type %>">
+        <%= fi_icon attrs.icon, class: "w-6 h-6 mr-2" %>
 
-  <p class="alert alert-info" role="alert" phx-click="lv:clear-flash" phx-value-key="info">
-    <%= live_flash(@flash, :info) %></p>
-  <p class="alert alert-danger" role="alert" phx-click="lv:clear-flash" phx-value-key="error">
-    <%= live_flash(@flash, :error) %></p>
+        <p class="w-72 mr-8 break-words" role="alert">
+          <%= flash %>
+        </p>
+
+        <%= fi_icon "x-circle",
+              class: "absolute top-1 right-1 w-5 h-5 cursor-pointer",
+              "@click": "show=false"
+        %>
+      </div>
+    </div>
+    <% end %>
+  </div>
 
   <%= @inner_content %>
 </main>
