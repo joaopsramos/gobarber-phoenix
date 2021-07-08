@@ -65,10 +65,13 @@ defmodule GoBarberWeb.CustomerLive.Appointments.New do
 
     case Schedules.create_appointment(customer, %{date: datetime, provider_id: provider_id}) do
       {:ok, _appointment} ->
-        {:noreply, push_redirect(socket, to: Routes.customer_dashboard_path(socket, :index))}
+        {:noreply,
+         socket
+         |> put_flash(:success, "Scheduling done successfully")
+         |> push_redirect(to: Routes.customer_dashboard_path(socket, :index))}
 
       {:error, _reason} ->
-        {:noreply, socket}
+        {:noreply, put_flash(socket, :error, "Something went wrong, please try again")}
     end
   end
 
