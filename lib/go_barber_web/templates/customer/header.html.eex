@@ -1,7 +1,9 @@
 <div class="bg-black-medium">
   <div class="container mx-auto flex justify-between items-center text-gray">
     <div class="flex items-center my-8">
-      <img src="<%= Routes.static_url(@socket, "/images/logo.svg") %>" alt="Logo" class="max-h-20">
+      <a href="<%= Routes.customer_dashboard_path(@socket, :index) %>">
+        <img src="<%= Routes.static_url(@socket, "/images/logo.svg") %>" alt="Logo" class="max-h-20">
+      </a>
       <div class="flex items-center ml-20">
         <%= bi_icon "user-circle", class: "text-6xl", type: :solid %>
         <div class="flex flex-col ml-4">
