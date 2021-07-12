@@ -62,7 +62,14 @@ defmodule GoBarberWeb.ProviderLive.Dashboard do
 
     1..Date.days_in_month(date)
     |> Enum.map(& &1)
-    |> Kernel.--(days_with_appointments)
+    |> Kernel.--(disable_past_days(days_with_appointments, date))
+  end
+
+  defp disable_past_days(days_with_appointments, date) do
+    Enum.reject(days_with_appointments, fn day ->
+      appointment_date = Date.new!(date.year, date.month, day)
+      Date.compare(Date.utc_today(), appointment_date) == :gt
+    end)
   end
 
   defp build_horaries(appointments) do
