@@ -14,7 +14,11 @@
                 py-5 px-4 space-x-5 bg-shape border-2 cursor-pointer transform transition-all
                 duration-200 hover:border-orange hover:translate-x-2" :class="
                 selected_provider === '<%= provider.id %>' ? 'border-orange' : 'border-shape'">
+            <%= if provider.avatar  do %>
+            <img src="<%= provider.avatar %>" alt="Avatar" class="rounded-full w-16 h-w-16">
+            <% else %>
             <%= bi_icon "user-circle", class: "text-7xl text-inputs", type: :solid %>
+            <% end %>
             <div>
               <span class=" capitalize text-white text-lg font-medium">
                 <%= provider.name %>
@@ -52,7 +56,7 @@
       </div>
 
       <div class="w-72">
-        <h2 class="text-white font-medium text-2xl mb-6">Choose the time</h2>
+        <h2 class="text-white font-medium text-2xl mb-6">Choose the hour</h2>
 
         <ul x-data="{ selected_hour: '<%= @default_hour %>' }">
           <%= for period <- @horaries do %>

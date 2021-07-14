@@ -20,7 +20,11 @@
           <span class="absolute left-0 border border-orange h-3/4 rounded-r-md"></span>
 
           <div class="flex items-center ml-3">
+            <%= if @next_appointment.customer.avatar  do %>
+            <img src="<%= @next_appointment.customer.avatar %>" alt="Avatar" class="rounded-full w-20 h-w-20">
+            <% else %>
             <%= bi_icon "user-circle", class: "text-7xl text-inputs", type: :solid %>
+            <% end %>
             <span class="ml-3 text-2xl text-white font-medium"><%= @next_appointment.customer.name %></span>
           </div>
 
@@ -49,7 +53,11 @@
               </div>
 
               <div class="flex items-center flex-grow ml-6 py-2 bg-shape rounded-lg">
+                <%= if appointment.customer.avatar  do %>
+                <img src="<%= appointment.customer.avatar %>" alt="Avatar" class="rounded-full ml-2 w-14 h-w-14">
+                <% else %>
                 <%= bi_icon "user-circle", class: "text-7xl text-inputs ml-2", type: :solid %>
+                <% end %>
                 <span class="mx-3 text-xl font-medium"><%= appointment.customer.name %></span>
               </div>
             </li>

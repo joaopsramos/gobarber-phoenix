@@ -11,7 +11,11 @@
         <li class="flex items-center justify-between p-3 mb-2 bg-shape border-2 border-shape
               rounded-lg hover:border-orange transition-all duration-200 relative">
           <div class="flex items-center">
+            <%= if appointment.provider.avatar  do %>
+            <img src="<%= appointment.provider.avatar %>" alt="Avatar" class="rounded-full w-16 h-w-16">
+            <% else %>
             <%= bi_icon "user-circle", class: "text-6xl text-inputs", type: :solid %>
+            <% end %>
             <span class="ml-4 text-white text-xl font-medium">
               <%= appointment.provider.name %>
             </span>

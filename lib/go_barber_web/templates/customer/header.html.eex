@@ -5,7 +5,11 @@
         <img src="<%= Routes.static_url(@socket, "/images/logo.svg") %>" alt="Logo" class="max-h-20">
       </a>
       <div class="flex items-center ml-20">
+        <%= if @current_user.avatar  do %>
+        <img src="<%= @current_user.avatar %>" alt="Avatar" class="rounded-full w-24 h-w-24">
+        <% else %>
         <%= bi_icon "user-circle", class: "text-6xl", type: :solid %>
+        <% end %>
         <div class="flex flex-col ml-4">
           <span>Welcome,</span>
           <%= live_redirect @current_user.name,
