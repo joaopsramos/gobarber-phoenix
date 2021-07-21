@@ -1,10 +1,19 @@
 module.exports = {
-  purge: [
-    '../lib/**/*.ex',
-    '../lib/**/*.leex',
-    '../lib/**/*.eex',
-    './js/**/*.js'
-  ],
+  purge: {
+    content: [
+      '../lib/**/*.ex',
+      '../lib/**/*.leex',
+      '../lib/**/*.eex',
+      './js/**/*.js'
+    ],
+    options: {
+      safelist: [
+        "flash-success",
+        "flash-error",
+        "flash-info"
+      ]
+    }
+  },
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
