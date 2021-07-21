@@ -1,10 +1,10 @@
-<div class="bg-black-medium">
+<div class="bg-black-medium px-8 lg:px-8">
   <div class="container mx-auto flex justify-between items-center text-gray">
     <div class="flex items-center my-8">
       <a href="<%= Routes.customer_dashboard_path(@socket, :index) %>">
-        <img src="<%= Routes.static_url(@socket, "/images/logo.svg") %>" alt="Logo" class="max-h-20">
+        <img src="<%= Routes.static_url(@socket, "/images/logo.svg") %>" alt="Logo" class="max-h-20 hidden md:block">
       </a>
-      <div class="flex items-center ml-20">
+      <div class="flex items-center md:ml-20">
         <%= if @current_user.avatar  do %>
         <img src="<%= @current_user.avatar %>" alt="Avatar" class="rounded-full w-24 h-w-24">
         <% else %>

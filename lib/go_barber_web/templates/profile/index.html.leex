@@ -6,7 +6,7 @@
 
 <div class="h-full min-h-screen bg-background">
   <header class="flex items-center h-36 bg-black-medium">
-    <div class="container mx-auto">
+    <div class="ml-4 sm:mx-auto container">
       <%= fi_icon "arrow-left",
             class: "w-7 h-7 text-gray cursor-pointer",
             onclick: "window.history.back()"
@@ -34,7 +34,7 @@
     </div>
 
     <%= f = form_for @changeset, "#", phx_submit: "submit", class: "text-gray mx-auto" %>
-    <div class="w-80 mt-8">
+    <div class="sm:w-80 mt-8">
       <h2 class="justify-self-start text-white text-xl font-medium">My profile</h2>
 
       <div class="mt-6">

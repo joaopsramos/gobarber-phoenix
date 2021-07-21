@@ -1,9 +1,9 @@
 <div class="flex h-screen bg-background">
-  <div class="flex flex-col justify-center items-center w-full max-w-3xl">
+  <div class="flex flex-col justify-center items-center w-full max-w-3xl px-4 sm:px-0">
     <img src="<%= Routes.static_url(@socket, "/images/logo.svg") %>" alt="Logo">
     <h1 class="mt-16 mb-8 text-white text-3xl font-medium">Sign in to your account</h1>
 
-    <%= f = form_for :session, "/session", class: "text-gray-hard w-80" %>
+    <%= f = form_for :session, "/session", class: "text-gray-hard w-80 px-4 sm:px-0" %>
     <div class="mb-2">
       <%= live_component(
         @socket,
@@ -49,5 +49,5 @@
     <% end %>
   </div>
 
-  <div class="bg-sign-in bg-center bg-cover bg-no-repeat h-full w-full"></div>
+  <div class="hidden md:block bg-sign-in bg-center bg-cover bg-no-repeat h-full w-full"></div>
 </div>
